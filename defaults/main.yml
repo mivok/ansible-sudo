@@ -4,5 +4,35 @@ sudo_users:
   - root
   - "%wheel"
 
-# Do users need to enter a password?
-sudo_nopasswd: true
+# The sudo defaults, please see documentation of sudo for specifics.
+sudo_defaults:
+  - env_reset
+  - exempt_group=admin
+  - secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+# These are the sudo user defaults, If you add a user with these settings
+# the user will be able to sudo from all hosts, to all users using 
+# all commands without password prompts. you can offcourse change the
+# defaults here or override them on a per user basis.
+sudo_userdefaults:
+  hosts: ALL
+  asuser: ALL
+  asgroup: ALL 
+  nopassword: true
+  commands: ALL
+
+# Here you set hostaliasses, in which you can define groups
+# of hosts that you can use in the sudo users directive.
+sudo_hostalias:
+
+# Here you set useraliasses, you can define groups of users
+# that may use sudo, you can use this in the sudo users directive.
+sudo_useralias:
+
+# Here you set command aliasses, in which you can group commands
+# together that users can use in the sudo users directive.
+sudo_cmndalias:
+
+# Here you set runas aliases, defining a group of users someone may
+# run commands as, usable in the sudo users directive.
+sudo_runasalias:
