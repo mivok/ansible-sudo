@@ -1,4 +1,72 @@
 # {{ansible_managed}}
-{% for i in sudo_users %}
-{{i}} ALL=(ALL) {{"NOPASSWD: " if sudo_nopasswd else ""}}ALL
+
+{% for defaults in sudo_defaults %}
+{{defaults}}
+{% endfor %}
+
+{% for name, alias in sudo_cmndalias %}
+  {% if alias is string %}
+Cmnd_Alias {{name}} = {{alias}}
+  {% else %}
+Cmnd_Alias {{name}} = {{alias|join.(',')}}
+  {% endif %}
+{% endfor %}
+
+{% for name, alias in sudo_hostalias %}
+  {% if alias is string %}
+Host_Alias {{name}} = {{alias}}
+  {% else %}
+Host_Alias {{name}} = {{alias|join.(',')}}
+  {% endif %}
+{% endfor %}
+
+{% for name, alias in sudo_useralias %}
+  {% if alias is string %}
+User_Alias {{name}} = {{alias}}
+  {% else %}
+User_Alias {{name}} = {{alias|join.(',')}}
+  {% endif %}
+{% endfor %}
+
+{% for name, alias in sudo_runasalias %}
+  {% if alias is string %}
+Runas_Alias {{name}} = {{alias}}
+  {% else %}
+Runas_Alias {{name}} = {{alias|join.(',')}}
+  {% endif %}
+{% endfor %}
+
+{% for sudoer, vars in sudo_sudoers.iteritems() %}
+  {% set name = sudoer %}
+
+{% if vars.asuser %}
+  {% set asuser = vars.asuser %}
+{% else %}
+  {% set asuser = sudo_userdefaults.asuser %}
+{% endif %}
+
+{% if vars.hosts %}
+  {% set hosts = vars.hosts %}
+{% else %}
+  {% set hosts = sudo_userdefaults.hosts %}
+{% endif %}
+
+{% if vars.asgroup %}
+  {% set asgroup = vars.asgroup %}
+{% else %}
+  {% set asgroup = sudo_userdefaults.asgroup %}
+{% endif %}
+
+{% if vars.nopassword %}
+  {% set nopassword = vars.nopassword %}
+{% else %}
+  {% set nopassword = sudo_userdefaults.nopassword %}
+{% endif %}
+
+{% if vars.commands %}
+  {% set commands = vars.commands %}
+{% else %}
+  {% set commands = sudo_userdefaults.commands %}
+{% endif %}
+
 {% endfor %}
