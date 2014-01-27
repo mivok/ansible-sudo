@@ -1,8 +1,9 @@
 ---
 # Who has sudo access - use %foo for groups
-sudo_users:
-  - root
-  - "%wheel"
+sudo_sudoers:
+  "lols":
+  "test":
+  
 
 # The sudo defaults, please see documentation of sudo for specifics.
 sudo_defaults:
@@ -23,16 +24,16 @@ sudo_userdefaults:
 
 # Here you set hostaliasses, in which you can define groups
 # of hosts that you can use in the sudo users directive.
-sudo_hostalias:
+# sudo_hostalias:
 
 # Here you set useraliasses, you can define groups of users
 # that may use sudo, you can use this in the sudo users directive.
-sudo_useralias:
+# sudo_useralias:
 
 # Here you set command aliasses, in which you can group commands
 # together that users can use in the sudo users directive.
-sudo_cmndalias:
+# sudo_cmndalias:
 
 # Here you set runas aliases, defining a group of users someone may
 # run commands as, usable in the sudo users directive.
-sudo_runasalias:
+# sudo_runasalias:
