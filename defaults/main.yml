@@ -1,10 +1,9 @@
 ---
 # Who has sudo access - use %foo for groups
-sudo_sudoers:
-  "lols":
-  "test":
-  "pass":
-    nopassword: false
+#sudo_sudoers:
+#  "user":
+#  "pass":
+#    nopassword: false
  
 
 # The sudo defaults, please see documentation of sudo for specifics.
@@ -26,8 +25,8 @@ sudo_userdefaults:
 
 # Here you set hostaliasses, in which you can define groups
 # of hosts that you can use in the sudo users directive.
-sudo_hostalias:
-  local: '127.0.0.1'
+# sudo_hostalias:
+#  local: '127.0.0.1'
 
 # Here you set useraliasses, you can define groups of users
 # that may use sudo, you can use this in the sudo users directive.
