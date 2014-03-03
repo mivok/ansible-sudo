@@ -1,8 +1,27 @@
 # {{ansible_managed}}
+# jinja2:lstrip_blocks:True ,
 
-{% for defaults in sudo_defaults %}
-{{defaults}}
+{% macro sudo_aliasses(name) -%}
+{% if sudo_cmndalias is defined %}
+{% for name, alias in sudo_cmndalias %}
+{% if alias is not iterable %}
+Cmnd_Alias {{name}} = {{alias}}
+{% else %}
+Cmnd_Alias {{name}} = {{alias|join(', ')}}
+{% endif %}
 {% endfor %}
+{% endif %}
+{%- endmacro %}
+
+
+
+
+
+
+
+{% for defaults in sudo_defaults -%}
+{{defaults}}
+{%- endfor %}
 
 {% if sudo_cmndalias is defined %}
 {% for name, alias in sudo_cmndalias %}
