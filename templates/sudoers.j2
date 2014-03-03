@@ -1,28 +1,11 @@
 # {{ansible_managed}}
-# jinja2:lstrip_blocks:True ,
 
-{% macro sudo_aliasses(name) -%}
-{% if sudo_cmndalias is defined %}
-{% for name, alias in sudo_cmndalias %}
-{% if alias is not iterable %}
-Cmnd_Alias {{name}} = {{alias}}
-{% else %}
-Cmnd_Alias {{name}} = {{alias|join(', ')}}
-{% endif %}
-{% endfor %}
-{% endif %}
-{%- endmacro %}
-
-
-
-
-
-
-
+# Defaults
 {% for defaults in sudo_defaults -%}
 {{defaults}}
-{%- endfor %}
+{% endfor %}
 
+# Command aliasses
 {% if sudo_cmndalias is defined %}
 {% for name, alias in sudo_cmndalias %}
 {% if alias is not iterable %}
@@ -33,6 +16,7 @@ Cmnd_Alias {{name}} = {{alias|join(', ')}}
 {% endfor %}
 {% endif %}
 
+# Host aliasses
 {% if sudo_hostalias is defined %}
 {% for name, alias in sudo_hostalias %}
 {% if alias is not iterable %}
@@ -43,6 +27,7 @@ Host_Alias {{name}} = {{alias|join(', ')}}
 {% endfor %}
 {% endif %}
 
+# User aliasses
 {% if sudo_useralias is defined %}
 {% for name, alias in sudo_useralias %}
 {% if alias is not iterable %}
@@ -53,6 +38,7 @@ User_Alias {{name}} = {{alias|join(', ')}}
 {% endfor %}
 {% endif %}
 
+# Run As aliasses
 {% if sudo_runasalias is defined %}
 {% for name, alias in sudo_runasalias %}
 {% if alias is not iterable %}
@@ -63,39 +49,39 @@ Runas_Alias {{name}} = {{alias|join(', ')}}
 {% endfor %}
 {% endif %}
 
-{%- for sudoer, vars in sudo_sudoers.iteritems() %}
-  {% set name = sudoer %}
+# The users
+{%- for sudoer, vars in sudo_sudoers.iteritems() -%}
+  {% set name = sudoer -%}
 
-{% if vars.asuser is defined %}
+{% if vars.asuser is defined -%}
   {% set asuser = vars.asuser %}
-{% else %}
+{% else -%}
   {% set asuser = sudo_userdefaults.asuser %}
-{% endif %}
+{% endif -%}
 
-{% if vars.hosts is defined %}
+{% if vars.hosts is defined -%}
   {% set hosts = vars.hosts %}
-{% else %}
+{% else -%}
   {% set hosts = sudo_userdefaults.hosts %}
-{% endif %}
+{% endif -%}
 
-{% if vars.asgroup is defined %}
+{% if vars.asgroup is defined -%}
   {% set asgroup = vars.asgroup %}
-{% else %}
+{% else -%}
   {% set asgroup = sudo_userdefaults.asgroup %}
-{% endif %}
+{% endif -%}
 
-{% if vars.nopassword is defined %}
+{% if vars.nopassword is defined -%}
   {% set nopassword = vars.nopassword %}
-{% else %}
+{% else -%}
   {% set nopassword = sudo_userdefaults.nopassword %}
-{% endif %}
+{% endif -%}
 
-{% if vars.commands is defined %}
+{% if vars.commands is defined -%}
   {% set commands = vars.commands %}
-{% else %}
-  {% set commands = sudo_userdefaults.commands %}
-{% endif %}
+{% else -%}
+  {%- set commands = sudo_userdefaults.commands %}
+{% endif -%}
 
 {{sudoer}} {{hosts}}=({{asuser}}) {{"NOPASSWD:" if nopassword else ""}}{{commands}}
-
-{%- endfor %}
+{% endfor %}
