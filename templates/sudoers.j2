@@ -7,50 +7,34 @@
 
 # Command aliasses
 {% if sudo_cmndalias is defined %}
-{% for name, alias in sudo_cmndalias %}
-{% if alias is not iterable %}
+{% for name, alias in sudo_cmndalias.iteritems() %}
 Cmnd_Alias {{name}} = {{alias}}
-{% else %}
-Cmnd_Alias {{name}} = {{alias|join(', ')}}
-{% endif %}
 {% endfor %}
 {% endif %}
 
 # Host aliasses
 {% if sudo_hostalias is defined %}
-{% for name, alias in sudo_hostalias %}
-{% if alias is not iterable %}
+{% for name, alias in sudo_hostalias.iteritems() %}
 Host_Alias {{name}} = {{alias}}
-{% else %}
-Host_Alias {{name}} = {{alias|join(', ')}}
-{% endif %}
 {% endfor %}
 {% endif %}
 
 # User aliasses
 {% if sudo_useralias is defined %}
-{% for name, alias in sudo_useralias %}
-{% if alias is not iterable %}
+{% for name, alias in sudo_useralias.iteritems() %}
 User_Alias {{name}} = {{alias}}
-{% else %}
-User_Alias {{name}} = {{alias|join(', ')}}
-{% endif %}
 {% endfor %}
 {% endif %}
 
 # Run As aliasses
 {% if sudo_runasalias is defined %}
-{% for name, alias in sudo_runasalias %}
-{% if alias is not iterable %}
+{% for name, alias in sudo_runasalias.iteritems() %}
 Runas_Alias {{name}} = {{alias}}
-{% else %}
-Runas_Alias {{name}} = {{alias|join(', ')}}
-{% endif %}
 {% endfor %}
 {% endif %}
 
 # The users
-{%- for sudoer, vars in sudo_sudoers.iteritems() -%}
+{% for sudoer, vars in sudo_sudoers.iteritems() -%}
   {% set name = sudoer -%}
 
 {% if vars.asuser is defined -%}
