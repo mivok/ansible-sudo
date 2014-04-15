@@ -6,5 +6,5 @@
     dest: /etc/sudoers
     owner: root
     group: root
-    mode: 440
+    mode: 0440
     validate: 'visudo -cf %s'
