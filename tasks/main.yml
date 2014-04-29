@@ -1,10 +1,9 @@
 # Set up a simple sudoers file
 ---
 - name: Copying, Verifying and placing sudo file
-  template: 
-    src: sudoers.j2
-    dest: /etc/sudoers
-    owner: root
-    group: root
-    mode: 0440
-    validate: 'visudo -cf %s'
+  template: >
+    src=sudoers.j2
+    dest=/etc/sudoers
+    owner=root group=root mode=0440
+    validate='visudo -cf %s'
+
