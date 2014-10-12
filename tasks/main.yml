@@ -1,5 +1,7 @@
 # Set up a simple sudoers file
 ---
+- include: install.yml
+
 - name: Copying, Verifying and placing sudo file
   template: >
     src=sudoers.j2
