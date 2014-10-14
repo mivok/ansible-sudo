@@ -69,3 +69,7 @@ Runas_Alias {{name}} = {{alias}}
 
 {{sudoer}} {{hosts}}=({{asuser}}) {{"NOPASSWD:" if nopassword else ""}}{{commands}}
 {% endfor %}
+
+# See sudoers(5) for more information on "#include" directives:
+
+#includedir /etc/sudoers.d
