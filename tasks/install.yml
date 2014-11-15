@@ -1,6 +1,6 @@
 ---
 - name: Install sudo via apt
-  apt: pkg=sudo state=present
+  apt: name=sudo state=present
   when: ansible_pkg_mgr == 'apt'
 
 - name: Install sudo via yum
