@@ -25,7 +25,7 @@
 
 - name: Ensure the sudoers directory is present
   file: >
-        path="{{ sudo_sudoers_dir }}"
+        path="{{ sudo_sudoers_dir | mandatory }}"
         state='directory'
         owner='root'
         group='root'
