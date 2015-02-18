@@ -6,6 +6,8 @@
   template: >
     src="{{ sudo_sudoers_template | mandatory }}"
     dest=/etc/sudoers
-    owner=root group=root mode=0440
+    owner=root
+    group=root
+    mode=0640
     validate='visudo -cf %s'
 ...
