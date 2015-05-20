@@ -1,10 +1,15 @@
 ---
+
+sudo_sudoers_template: sudoers.j2
+
+sudo_sudoers_dir: '/etc/sudoers.d'
+
 # Who has sudo access - use %foo for groups
 #sudo_sudoers:
 #  "user":
 #  "pass":
 #    nopassword: false
- 
+
 
 # The sudo defaults, please see documentation of sudo for specifics.
 sudo_defaults:
@@ -13,13 +18,13 @@ sudo_defaults:
   - secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 # These are the sudo user defaults, If you add a user with these settings
-# the user will be able to sudo from all hosts, to all users using 
+# the user will be able to sudo from all hosts, to all users using
 # all commands without password prompts. you can offcourse change the
 # defaults here or override them on a per user basis.
 sudo_userdefaults:
   hosts: ALL
   asuser: ALL
-  asgroup: ALL 
+  asgroup: ALL
   nopassword: true
   commands: ALL
 
@@ -39,3 +44,5 @@ sudo_userdefaults:
 # Here you set runas aliases, defining a group of users someone may
 # run commands as, usable in the sudo users directive.
 # sudo_runasalias:
+
+...

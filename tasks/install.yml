@@ -22,3 +22,12 @@
 
 - name: Ensure sudo group present
   group: name=sudo state=present system=yes
+
+- name: Ensure the sudoers directory is present
+  file: >
+        path="{{ sudo_sudoers_dir | mandatory }}"
+        state='directory'
+        owner='root'
+        group='root'
+        mode=0700
+...
