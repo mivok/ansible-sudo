@@ -1,33 +1,32 @@
 ---
-- name: Install sudo via apt
-  apt: name=sudo state=present
-  when: ansible_pkg_mgr == 'apt'
+- name:     Install sudo via apt
+  apt:      name=sudo state=present
+  when:     ansible_pkg_mgr == 'apt'
 
-- name: Install sudo via yum
-  yum: name=sudo state=present
-  when: ansible_pkg_mgr == 'yum'
+- name:     Install sudo via yum
+  yum:      name=sudo state=present
+  when:     ansible_pkg_mgr == 'yum'
 
-- name: Install sudo via zypper
-  zypper: name=sudo state=present
-  when: ansible_pkg_mgr == 'zypper'
+- name:     Install sudo via zypper
+  zypper:   name=sudo state=present
+  when:     ansible_pkg_mgr == 'zypper'
 
-- name: Install sudo via pacman
-  pacman: name=sudo state=present
-  when: ansible_pkg_mgr == 'pacman'
+- name:     Install sudo via pacman
+  pacman:   name=sudo state=present
+  when:     ansible_pkg_mgr == 'pacman'
 
-- name: Install sudo via portage
-  portage: name=sudo state=present
-  when: ansible_pkg_mgr == 'portage'
+- name:     Install sudo via portage
+  portage:  name=sudo state=present
+  when:     ansible_pkg_mgr == 'portage'
 
+- name:     Ensure sudo group present
+  group:    name=sudo state=present system=yes
 
-- name: Ensure sudo group present
-  group: name=sudo state=present system=yes
-
-- name: Ensure the sudoers directory is present
+- name:     Ensure the sudoers directory is present
   file: >
         path="{{ sudo_sudoers_dir | mandatory }}"
         state='directory'
-        owner='root'
-        group='root'
-        mode=0700
+        owner="{{ sudo_sudoers_dir_owner | omit }}"
+        group="{{ sudo_sudoers_dir_group | omit }}"
+        mode="{{ sudo_sudoers_dir_mode | omit }}"
 ...

@@ -1,8 +1,22 @@
 ---
+# Template to use for creating /etc/sudoers
+sudo_sudoers_template:    sudoers.j2
 
-sudo_sudoers_template: sudoers.j2
+# The default owner of the file /etc/sudoers
+sudo_sudoers_file_owner:  'root'
+# The default group of the file /etc/sudoers
+sudo_sudoers_file_group:  'root'
+# The default mode of the file /etc/sudoers
+sudo_sudoers_file_mode:   '0640'
 
-sudo_sudoers_dir: '/etc/sudoers.d'
+# Folder to use for includeir directive. Will be automatically created
+sudo_sudoers_dir:         '/etc/sudoers.d'
+# The default owner of the directory
+sudo_sudoers_dir_owner:   'root'
+# The default group of the directory
+sudo_sudoers_dir_group:   'root'
+# The default mode of the directory
+sudo_sudoers_dir_mode:    '0640'
 
 # Who has sudo access - use %foo for groups
 #sudo_sudoers:
