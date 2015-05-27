@@ -2,7 +2,14 @@
 
 sudo_sudoers_template: sudoers.j2
 
+sudo_sudoers_file_owner: 'root'
+sudo_sudoers_file_group: 'root'
+sudo_sudoers_file_mode: '0640'
+
 sudo_sudoers_dir: '/etc/sudoers.d'
+sudo_sudoers_dir_owner: 'root'
+sudo_sudoers_dir_group: 'root'
+sudo_sudoers_dir_mode: '0640'
 
 # Who has sudo access - use %foo for groups
 #sudo_sudoers:

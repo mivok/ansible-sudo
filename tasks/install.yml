@@ -27,7 +27,7 @@
   file: >
         path="{{ sudo_sudoers_dir | mandatory }}"
         state='directory'
-        owner='root'
-        group='root'
-        mode=0750
+        owner="{{ sudo_sudoers_dir_owner | omit }}"
+        group="{{ sudo_sudoers_dir_group | omit }}"
+        mode="{{ sudo_sudoers_dir_mode | omit }}"
 ...
