@@ -16,7 +16,7 @@ sudo_sudoers_dir_owner:   'root'
 # The default group of the directory
 sudo_sudoers_dir_group:   'root'
 # The default mode of the directory
-sudo_sudoers_dir_mode:    '0640'
+sudo_sudoers_dir_mode:    '0750'
 
 # Who has sudo access - use %foo for groups
 #sudo_sudoers:
