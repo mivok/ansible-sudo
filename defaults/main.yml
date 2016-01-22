@@ -1,8 +1,62 @@
 ---
-# Who has sudo access - use %foo for groups
-sudo_users:
-  - root
-  - "%wheel"
+# Template to use for creating /etc/sudoers
+sudo_sudoers_template:    sudoers.j2
 
-# Do users need to enter a password?
-sudo_nopasswd: true
+# The default owner of the file /etc/sudoers
+sudo_sudoers_file_owner:  'root'
+# The default group of the file /etc/sudoers
+sudo_sudoers_file_group:  'root'
+# The default mode of the file /etc/sudoers
+sudo_sudoers_file_mode:   '0640'
+
+# Folder to use for includeir directive. Will be automatically created
+sudo_sudoers_dir:         '/etc/sudoers.d'
+# The default owner of the directory
+sudo_sudoers_dir_owner:   'root'
+# The default group of the directory
+sudo_sudoers_dir_group:   'root'
+# The default mode of the directory
+sudo_sudoers_dir_mode:    '0750'
+
+# Who has sudo access - use %foo for groups
+#sudo_sudoers:
+#  "user":
+#  "pass":
+#    nopassword: false
+
+
+# The sudo defaults, please see documentation of sudo for specifics.
+sudo_defaults:
+  - env_reset
+  - exempt_group=admin
+  - secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+# These are the sudo user defaults, If you add a user with these settings
+# the user will be able to sudo from all hosts, to all users using
+# all commands without password prompts. you can offcourse change the
+# defaults here or override them on a per user basis.
+sudo_userdefaults:
+  hosts: ALL
+  asuser: ALL
+  asgroup: ALL
+  nopassword: true
+  commands: ALL
+
+# Here you set hostaliasses, in which you can define groups
+# of hosts that you can use in the sudo users directive.
+# sudo_hostalias:
+#  local: '127.0.0.1'
+
+# Here you set useraliasses, you can define groups of users
+# that may use sudo, you can use this in the sudo users directive.
+# sudo_useralias:
+
+# Here you set command aliasses, in which you can group commands
+# together that users can use in the sudo users directive.
+# sudo_cmndalias:
+
+# Here you set runas aliases, defining a group of users someone may
+# run commands as, usable in the sudo users directive.
+# sudo_runasalias:
+
+...

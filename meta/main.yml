@@ -1,7 +1,7 @@
 ---
 galaxy_info:
-  author: Mark Harrison
-  description: Simple /etc/sudoers management role
+  author: Fabian Met
+  description: A management role that will manage your /etc/sudoers. It will check for validity and allow you to manage your sudo file with only variables.
   license: MIT
   min_ansible_version: 1.3
   platforms:
@@ -34,3 +34,4 @@ galaxy_info:
   categories:
   - system
 dependencies: []
+...

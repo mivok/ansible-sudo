@@ -1,4 +1,77 @@
 # {{ansible_managed}}
-{% for i in sudo_users %}
-{{i}} ALL=(ALL) {{"NOPASSWD: " if sudo_nopasswd else ""}}ALL
+
+# Defaults
+{% for defaults in sudo_defaults -%}
+Defaults {{defaults}}
 {% endfor %}
+
+# Command aliasses
+{% if sudo_cmndalias is defined %}
+{% for name, alias in sudo_cmndalias.iteritems() %}
+Cmnd_Alias {{name}} = {{alias}}
+{% endfor %}
+{% endif %}
+
+# Host aliasses
+{% if sudo_hostalias is defined %}
+{% for name, alias in sudo_hostalias.iteritems() %}
+Host_Alias {{name}} = {{alias}}
+{% endfor %}
+{% endif %}
+
+# User aliasses
+{% if sudo_useralias is defined %}
+{% for name, alias in sudo_useralias.iteritems() %}
+User_Alias {{name}} = {{alias}}
+{% endfor %}
+{% endif %}
+
+# Run As aliasses
+{% if sudo_runasalias is defined %}
+{% for name, alias in sudo_runasalias.iteritems() %}
+Runas_Alias {{name}} = {{alias}}
+{% endfor %}
+{% endif %}
+
+# The users
+
+{% if sudo_sudoers is defined %}
+  {% for sudoer, vars in sudo_sudoers.iteritems() -%}
+    {% set name = sudoer -%}
+
+    {% if vars.asuser is defined -%}
+      {% set asuser = vars.asuser %}
+    {% else -%}
+      {% set asuser = sudo_userdefaults.asuser %}
+    {% endif -%}
+
+    {% if vars.hosts is defined -%}
+      {% set hosts = vars.hosts %}
+    {% else -%}
+      {% set hosts = sudo_userdefaults.hosts %}
+    {% endif -%}
+
+    {% if vars.asgroup is defined -%}
+      {% set asgroup = vars.asgroup %}
+    {% else -%}
+      {% set asgroup = sudo_userdefaults.asgroup %}
+    {% endif -%}
+
+    {% if vars.nopassword is defined -%}
+      {% set nopassword = vars.nopassword %}
+    {% else -%}
+      {% set nopassword = sudo_userdefaults.nopassword %}
+    {% endif -%}
+
+    {% if vars.commands is defined -%}
+      {% set commands = vars.commands %}
+    {% else -%}
+      {%- set commands = sudo_userdefaults.commands %}
+    {% endif -%}
+
+    {{sudoer}} {{hosts}}=({{asuser}}) {{"NOPASSWD:" if nopassword else ""}}{{commands}}
+  {%- endfor %}
+{% endif -%}
+
+## Read drop-in files from /etc/sudoers.d (the # here does not mean a comment)
+#includedir {{ sudo_sudoers_dir | mandatory }}

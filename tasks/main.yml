@@ -1,4 +1,13 @@
 # Set up a simple sudoers file
 ---
-- name: Sudoers file
-  template: src=sudoers.j2 dest=/etc/sudoers validate='/usr/sbin/visudo -cf %s'
+- include: install.yml
+
+- name: Copying, Verifying and placing sudo file
+  template: >
+    src="{{ sudo_sudoers_template | mandatory }}"
+    dest=/etc/sudoers
+    owner="{{ sudo_sudoers_file_owner | default(omit) }}"
+    group="{{ sudo_sudoers_file_group | default(omit) }}"
+    mode="{{ sudo_sudoers_file_mode | default(omit) }}"
+    validate='visudo -cf %s'
+...
